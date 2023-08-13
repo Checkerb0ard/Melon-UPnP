@@ -38,7 +38,7 @@ namespace MelonUPnP
 #pragma warning restore CS0672 // Member overrides obsolete member
         {
             Singleton = this;
-            MelonLogger.Msg("UPnP mod has started.");
+            MelonLogger.Msg("UPnP has started.");
 
             FetchAndOpenPort();
         }
@@ -50,7 +50,7 @@ namespace MelonUPnP
                 ClosePort();
             }
 
-            MelonLogger.Msg("UPnP mod has stopped.");
+            MelonLogger.Msg("UPnP has stopped.");
         }
 
         private async void FetchAndOpenPort()
