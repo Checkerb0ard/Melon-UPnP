@@ -21,6 +21,8 @@ namespace UPnP
 
         public override void OnInitializeMelon()
         {
+            //Melon Pref stuff
+
             _UNP = MelonPreferences.CreateCategory("UPNP");
 
             LocalIPAddress = _UNP.CreateEntry<string>("Local IP Address", ("127.0.0.1"));
@@ -112,6 +114,8 @@ namespace UPnP
         {
             try
             {
+                //Open the port
+
                 var portmap = new Mapping(Protocol.Udp, 7777, 7777, "MelonLoader");
                 await device.CreatePortMapAsync(portmap);
 
@@ -124,6 +128,9 @@ namespace UPnP
         }
 
         private async void ClosePort()
+
+        //Close port OnApplicationQuit
+
         {
             try
             {
