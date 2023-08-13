@@ -24,7 +24,7 @@ namespace UPnP
 
             LocalIPAddress = _UNP.CreateEntry<string>("Local IP Address", (""));
 
-            MelonLogger.Msg("Mellon Preferences loaded!");
+            MelonLogger.Msg("Melon Preferences loaded!");
         }
 
 #pragma warning disable CS0672 // Member overrides obsolete member
