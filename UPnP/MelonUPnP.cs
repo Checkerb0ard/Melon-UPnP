@@ -17,7 +17,7 @@ namespace MelonUPnP
 
         private MelonPreferences_Category _UNP;
         private MelonPreferences_Entry<string> LocalIPAddress;
-        private MelonPreferences_Entry<int> PortNumber;
+        //private MelonPreferences_Entry<int> PortNumber;
 
         public override void OnInitializeMelon()
         {
