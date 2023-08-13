@@ -17,25 +17,23 @@ namespace MelonUPnP
 
         private MelonPreferences_Category _UNP;
         private MelonPreferences_Entry<string> LocalIPAddress;
-        //private MelonPreferences_Entry<int> PortNumber;
+        private MelonPreferences_Entry<string> PortNumber;
 
         public override void OnInitializeMelon()
         {
-            //Melon Pref stuff, adding soon
+            //Melon Pref stuff
 
             _UNP = MelonPreferences.CreateCategory("UPNP");
 
             LocalIPAddress = _UNP.CreateEntry<string>("Local IP Address", ("127.0.0.1"));
 
-            //PortNumber = _UNP.CreateEntry<int>("Port Number", (7777));
-            //Unused
+            //its a start
+            PortNumber = _UNP.CreateEntry<string>("Port Number", ("7777"));
 
             MelonLogger.Msg("Melon Preferences loaded!");
         }
-
-#pragma warning disable CS0672 // Member overrides obsolete member
         public override void OnApplicationStart()
-#pragma warning restore CS0672 // Member overrides obsolete member
+
         {
             Singleton = this;
             MelonLogger.Msg("UPnP has started.");
