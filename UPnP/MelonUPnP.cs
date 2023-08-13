@@ -21,14 +21,14 @@ namespace MelonUPnP
 
         public override void OnInitializeMelon()
         {
-            //Melon Pref stuff
+            //Melon Pref stuff, adding soon
 
             _UNP = MelonPreferences.CreateCategory("UPNP");
 
             LocalIPAddress = _UNP.CreateEntry<string>("Local IP Address", ("127.0.0.1"));
 
             //PortNumber = _UNP.CreateEntry<int>("Port Number", (7777));
-            //unused
+            //Unused
 
             MelonLogger.Msg("Melon Preferences loaded!");
         }
