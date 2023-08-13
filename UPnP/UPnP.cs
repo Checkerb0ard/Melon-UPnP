@@ -7,11 +7,11 @@ using System.Net.NetworkInformation;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UPnP
+namespace MelonUPnP
 {
-    public class UPnP : MelonMod
+    public class MelonUPnP : MelonMod
     {
-        public static UPnP Singleton;
+        public static MelonUPnP Singleton;
         private NatDevice natDevice;
         private string localIp;
 

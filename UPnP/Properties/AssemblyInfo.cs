@@ -6,17 +6,17 @@ using MelonLoader;
 // Information about a mod is controlled through the following set of
 // attributes. Change these attribute values to modify the information
 // associated with a mod.
-[assembly: MelonInfo(typeof(UPnP.UPnP), "UPnP", "1.0.0", "Tidefusion")]
+[assembly: MelonInfo(typeof(MelonUPnP.MelonUPnP), "MelonUPnP", "1.0.0", "Checkerboard")]
 [assembly: MelonGame("Stress Level Zero", "BONELAB")]
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UPnP")]
+[assembly: AssemblyTitle("MelonUPnP")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("UPnP")]
+[assembly: AssemblyProduct("MelonUPnP")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
