@@ -18,6 +18,7 @@ namespace MelonUPnP
         private MelonPreferences_Category _UNP;
         private MelonPreferences_Entry<string> LocalIPAddress;
         private MelonPreferences_Entry<string> PortNumber;
+        private MelonPreferences_Entry<string> _Protocol;
 
         public override void OnInitializeMelon()
         {
@@ -27,8 +28,9 @@ namespace MelonUPnP
 
             LocalIPAddress = _UNP.CreateEntry<string>("Local IP Address", ("127.0.0.1"));
 
-            //its a start
             PortNumber = _UNP.CreateEntry<string>("Port Number", ("7777"));
+
+            _Protocol = _UNP.CreateEntry<string>("Protocol", ("UDP"));
 
             MelonLogger.Msg("Melon Preferences loaded!");
         }
@@ -113,11 +115,10 @@ namespace MelonUPnP
             try
             {
                 //Open the port
-
                 var portmap = new Mapping(Protocol.Udp, 7777, 7777, "MelonLoader");
                 await device.CreatePortMapAsync(portmap);
 
-                MelonLogger.Msg($"Port 7777 has been opened. External IPv4: {externalIp}, Local IPv4: {localIp}");
+                MelonLogger.Msg($"Port 7777 has been opened. Protocol: {_Protocol}, External IPv4: {externalIp}, Local IPv4: {localIp}");
             }
             catch (Exception ex)
             {
