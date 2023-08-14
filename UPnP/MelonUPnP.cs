@@ -17,8 +17,8 @@ namespace MelonUPnP
 
         private MelonPreferences_Category _UNP;
         private MelonPreferences_Entry<string> LocalIPAddress;
-        private MelonPreferences_Entry<string> PortNumber;
-        private MelonPreferences_Entry<string> _Protocol;
+        private MelonPreferences_Entry<int> PortNumber;
+        private MelonPreferences_Entry<Open.Nat.Protocol> _Protocol;
 
         public override void OnInitializeMelon()
         {
@@ -28,9 +28,9 @@ namespace MelonUPnP
 
             LocalIPAddress = _UNP.CreateEntry<string>("Local IP Address", ("127.0.0.1"));
 
-            PortNumber = _UNP.CreateEntry<string>("Port Number", ("7777"));
+            PortNumber = _UNP.CreateEntry<int>("Port Number", 7777);
 
-            _Protocol = _UNP.CreateEntry<string>("Protocol", ("UDP"));
+            _Protocol = _UNP.CreateEntry<Open.Nat.Protocol>("Protocol", (Protocol.Udp));
 
             MelonLogger.Msg("Melon Preferences loaded!");
         }
@@ -112,13 +112,16 @@ namespace MelonUPnP
 
         private async Task OpenPortAsync(NatDevice device, string externalIp)
         {
+
+            var _protocol = _Protocol.Value;
+
             try
             {
                 //Open the port
-                var portmap = new Mapping(Protocol.Udp, 7777, 7777, "MelonLoader");
+                var portmap = new Mapping(_protocol, PortNumber.Value, PortNumber.Value, "MelonLoader"); ;
                 await device.CreatePortMapAsync(portmap);
 
-                MelonLogger.Msg($"Port 7777 has been opened. Protocol: {_Protocol}, External IPv4: {externalIp}, Local IPv4: {localIp}");
+                MelonLogger.Msg($"Port {PortNumber.Value} has been opened. Protocol: {_protocol} External IPv4: {externalIp}, Local IPv4: {localIp}");
             }
             catch (Exception ex)
             {
@@ -131,10 +134,12 @@ namespace MelonUPnP
         //Close port OnApplicationQuit
 
         {
+            var _protocol = _Protocol.Value;
+
             try
             {
-                await natDevice.DeletePortMapAsync(new Mapping(Protocol.Udp, 7777, 7777));
-                MelonLogger.Msg("Port 7777 has been closed.");
+                await natDevice.DeletePortMapAsync(new Mapping(_protocol, PortNumber.Value, PortNumber.Value));
+                MelonLogger.Msg($"Port {PortNumber.Value} has been closed.");
             }
             catch (Exception ex)
             {
