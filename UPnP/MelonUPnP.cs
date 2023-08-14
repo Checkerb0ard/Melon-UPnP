@@ -121,7 +121,7 @@ namespace MelonUPnP
                 var portmap = new Mapping(_protocol, PortNumber.Value, PortNumber.Value, "MelonLoader"); ;
                 await device.CreatePortMapAsync(portmap);
 
-                MelonLogger.Msg($"Port {PortNumber.Value} has been opened. Protocol: {_protocol} External IPv4: {externalIp}, Local IPv4: {localIp}");
+                MelonLogger.Msg($"Port {PortNumber.Value} has been opened. Protocol: {_protocol}, Local IPv4: {localIp}");
             }
             catch (Exception ex)
             {
