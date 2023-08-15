@@ -16,7 +16,6 @@ namespace MelonUPnP
         private string localIp;
 
         private MelonPreferences_Category _UNP;
-        private MelonPreferences_Entry<string> LocalIPAddress;
         private MelonPreferences_Entry<int> PortNumber;
         private MelonPreferences_Entry<Open.Nat.Protocol> _Protocol;
 
@@ -25,8 +24,6 @@ namespace MelonUPnP
             //Melon Pref stuff
 
             _UNP = MelonPreferences.CreateCategory("UPNP");
-
-            LocalIPAddress = _UNP.CreateEntry<string>("Local IP Address", ("127.0.0.1"));
 
             PortNumber = _UNP.CreateEntry<int>("Port Number", 7777);
 
@@ -105,9 +102,42 @@ namespace MelonUPnP
 
         private string FetchLocalIPv4()
         {
-            var localIp = LocalIPAddress.Value;
-
+            string localIp = GetLocalIPAddress();
             return localIp;
+        }
+
+        private string GetLocalIPAddress()
+        {
+            string localIpAddress = null;
+
+            try
+            {
+                NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+               
+                NetworkInterface activeInterface = networkInterfaces.FirstOrDefault(
+                    iface => iface.OperationalStatus == OperationalStatus.Up &&
+                             (iface.NetworkInterfaceType != NetworkInterfaceType.Loopback || iface.NetworkInterfaceType != NetworkInterfaceType.Tunnel) &&
+                             iface.GetIPProperties().UnicastAddresses.Any(
+                                 addr => addr.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork));
+
+                if (activeInterface != null)
+                {
+                    var ipProperties = activeInterface.GetIPProperties();
+                    var ipv4Address = ipProperties.UnicastAddresses.FirstOrDefault(
+                        addr => addr.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)?.Address;
+
+                    if (ipv4Address != null)
+                    {
+                        localIpAddress = ipv4Address.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MelonLogger.Error($"Error fetching local IPv4 address: {ex.Message}");
+            }
+
+            return localIpAddress;
         }
 
         private async Task OpenPortAsync(NatDevice device, string externalIp)
@@ -132,7 +162,6 @@ namespace MelonUPnP
         private async void ClosePort()
 
         //Close port OnApplicationQuit
-
         {
             var _protocol = _Protocol.Value;
 
