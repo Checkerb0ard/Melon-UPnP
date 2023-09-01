@@ -47,7 +47,7 @@ namespace MelonUPnP
                 ClosePort();
             }
 
-            MelonLogger.Msg("UPnP has stopped.");
+            MelonLogger.Msg($"UPnP has stopped and port {PortNumber.Value} has been closed.");
         }
 
         private async void FetchAndOpenPort()
