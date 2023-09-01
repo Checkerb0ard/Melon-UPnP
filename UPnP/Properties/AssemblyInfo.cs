@@ -6,7 +6,7 @@ using MelonLoader;
 // Information about a mod is controlled through the following set of
 // attributes. Change these attribute values to modify the information
 // associated with a mod.
-[assembly: MelonInfo(typeof(MelonUPnP.MelonUPnP), "MelonUPnP", "1.0.0", "Checkerboard")]
+[assembly: MelonInfo(typeof(MelonUPnP.MelonUPnP), "MelonUPnP", "1.3.0", "Checkerboard")]
 [assembly: MelonGame("Stress Level Zero", "BONELAB")]
 
 // General Information about an assembly is controlled through the following
