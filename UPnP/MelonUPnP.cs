@@ -23,7 +23,7 @@ namespace MelonUPnP
         {
             //Melon Pref stuff
 
-            _UNP = MelonPreferences.CreateCategory("UPNP");
+            _UNP = MelonPreferences.CreateCategory("Melon UPnP");
 
             PortNumber = _UNP.CreateEntry<int>("Port Number", 7777);
 
@@ -35,6 +35,7 @@ namespace MelonUPnP
 
         {
             Singleton = this;
+            MelonLogger.Msg($"Local IP: {localIpAddress}")
             MelonLogger.Msg("UPnP has started.");
 
             FetchAndOpenPort();
